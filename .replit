@@ -1,0 +1,3 @@
+language = "python3"
+run="pgzrun trexJump.py"
+onBoot="sleep 5s && pkill pyls"
