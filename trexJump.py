@@ -59,6 +59,7 @@ def update_pumpkin():
 def reset():
   global score, nextRadian, isJumping, game_over
   if keyboard.space:
+    trex.pos = trex.width*2, HEIGHT-trex.height//2
     pumpkin.pos = WIDTH-pumpkin.width//2, HEIGHT-pumpkin.height//2
     score = 0
     nextRadian = 1
