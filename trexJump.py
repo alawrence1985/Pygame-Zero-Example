@@ -18,13 +18,15 @@ game_over = False
 
 def draw():
     screen.clear()
-    screen.fill("black")
+    screen.blit("graveyard.png", (0,0))
+    
     if not game_over:
       trex.draw()
       pumpkin.draw()
       screen.draw.text("SCORE: " + str(score), (5, 10), color="orange")
     else:
       screen.draw.text("GAME OVER :(((((", (125, 100), color="orange")
+      reset()
 
 def update():
   update_trex()
@@ -35,11 +37,9 @@ def update_trex():
 
   if keyboard.up and not isJumping:
     isJumping = True
-    trex.y = -90*math.sin(nextRadian*RADIAN) + GROUND
-    nextRadian = nextRadian + 1
+    jump()
   elif trex.y < GROUND and isJumping:
-    trex.y = -90*math.sin(nextRadian*RADIAN) + GROUND
-    nextRadian = nextRadian + 1
+    jump()
   else:
     isJumping = False
     nextRadian = 1
@@ -55,3 +55,17 @@ def update_pumpkin():
   
   if pumpkin.colliderect(trex):
     game_over = True
+
+def reset():
+  global score, nextRadian, isJumping, game_over
+  if keyboard.space:
+    pumpkin.pos = WIDTH-pumpkin.width//2, HEIGHT-pumpkin.height//2
+    score = 0
+    nextRadian = 1
+    isJumping = False
+    game_over = False
+
+def jump():
+  global nextRadian
+  trex.y = -90*math.sin(nextRadian*RADIAN) + GROUND
+  nextRadian = nextRadian + 1
